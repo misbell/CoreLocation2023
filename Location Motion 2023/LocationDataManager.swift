@@ -17,6 +17,8 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
         locationManager.delegate = self
     }
     
+
+    
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedWhenInUse:  // Location services are available.
@@ -46,7 +48,17 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // Insert code to handle location updates
+        if let location = locations.first {
+            let latitude = location.coordinate.latitude
+            let longitude = location.coordinate.longitude
+            
+            print("Latitude \(latitude)")
+            print("Longitude \(longitude)")
+            print("Altitude \(location.altitude)")
+            print("Speed \(location.speed)")
+            print("Course \(location.course)")
+            // Handle location update
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

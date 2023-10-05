@@ -30,6 +30,7 @@ struct ContentView: View {
                         ProgressView()
                     }
             Text("...we're good")
+            Button
                 }
         .padding()
     }
