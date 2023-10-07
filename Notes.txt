@@ -1,0 +1,30 @@
+
+Check out SensorKit
+
+good note on basic setup for location
+https://www.advancedswift.com/user-location-in-swift/
+
+don't forget goshdarn swift syntax
+
+how to update state ...
+with ongoing location updates
+
+keep in mind if didupdates not being fired
+https://stackoverflow.com/questions/37683139/didupdatelocations-never-called
+
+tracking visited locations
+https://www.kodeco.com/5247-core-location-tutorial-for-ios-tracking-visited-locations
+
+tracking significant location changes
+https://developer.apple.com/documentation/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati
+
+
+good all around core location, 2020 article
+https://itnext.io/swift-ios-cllocationmanager-all-in-one-b786ffd37e4a
+
+
+isAuthorizedForPreciseLocation
+https://stackoverflow.com/questions/62931893/ios-location-manager-isauthorizedforpreciselocation-doesnt-seem-to-exist
+
+
+
