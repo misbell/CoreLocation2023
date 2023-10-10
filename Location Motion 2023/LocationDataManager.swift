@@ -67,7 +67,9 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
             
         case .notDetermined:        // Authorization not determined yet.
             authorizationStatus = .notDetermined
-            manager.requestWhenInUseAuthorization()
+            manager.requestWhenInUseAuthorization() // note with uikit this was done in ViewDidLoad
+            // or
+            // manager.requestAlwaysAuthorization()
             break
             
         default:
@@ -80,27 +82,45 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
             let latitude = location.coordinate.latitude
             let longitude = location.coordinate.longitude
             
-            print("Latitude \(latitude)")
-            print("Longitude \(longitude)")
-            print("Altitude \(location.altitude)")
-            print("Speed \(location.speed)")
-            print("Course \(location.course)")
-            // Handle location update
+            
+        }
+        
+        print("LocationManager didUpdateLocations: numberOfLocation: \(locations.count)")
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        locations.forEach {
+            (location) in
+            print("LocationManager didUpdateLocations: \(dateFormatter.string(from: location.timestamp)); \(location.coordinate.latitude), \(location.coordinate.longitude)")
+            print("LocationManager altitude: \(location.altitude)")
+            print("LocationManager floor?.level: \(location.floor?.level)")
+            print("LocationManager horizontalAccuracy: \(location.horizontalAccuracy)")
+            print("LocationManager verticalAccuracy: \(location.verticalAccuracy)")
+            print("LocationManager speedAccuracy: \(location.speedAccuracy)")
+            print("LocationManager speed: \(location.speed)")
+            print("LocationManager timestamp: \(location.timestamp)")
+            print("LocationManager courseAccuracy: \(location.courseAccuracy)") // 13.4
+            print("LocationManager course: \(location.course)")
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("error: \(error.localizedDescription)")
+        print("LocationManager didFailWithError \(error.localizedDescription)")
+        if let error = error as? CLError, error.code == .denied {
+            // Location updates are not authorized.
+            // To prevent forever looping of `didFailWithError` callback
+            locationManager?.stopMonitoringSignificantLocationChanges()
+            return
+        }
+        
+        
     }
     
-    
 }
-
-
-
-// locationManager.startUpdatingLocation()
-// locationManager.startMonitoringSignificantLocationChanges()
-// locationManager.startMonitoringVisits()
-// locationManager.startMonitoringLocationPushes()
-// locationManager.stopUpdatingLocation()
-// locationManager.startMonitoringLocationPushes(completion: <#T##((Data?, Error?) -> Void)?##((Data?, Error?) -> Void)?##(Data?, Error?) -> Void#>)
+    
+    // locationManager.startUpdatingLocation()
+    // locationManager.startMonitoringSignificantLocationChanges()
+    // locationManager.startMonitoringVisits()
+    // locationManager.startMonitoringLocationPushes()
+    // locationManager.stopUpdatingLocation()
+    // locationManager.startMonitoringLocationPushes(completion: <#T##((Data?, Error?) -> Void)?##((Data?, Error?) -> Void)?##(Data?, Error?) -> Void#>)
