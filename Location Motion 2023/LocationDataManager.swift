@@ -52,7 +52,8 @@ class LocationDataManager : NSObject, ObservableObject, CLLocationManagerDelegat
         case .authorizedWhenInUse:  // Location services are available.
             // Insert code here of what should happen when Location services are authorized
             authorizationStatus = .authorizedWhenInUse
-            locationManager!.requestLocation()
+            //locationManager!.requestLocation()
+            locationManager!.startUpdatingLocation()
             break
             
         case .restricted:  // Location services currently unavailable.
